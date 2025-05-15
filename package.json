@@ -2,6 +2,14 @@
   "name": "areksmart",
   "version": "1.0.0",
   "description": "",
+  "homepage": "https://github.com/sewysei/ArekSmart#readme",
+  "bugs": {
+    "url": "https://github.com/sewysei/ArekSmart/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sewysei/ArekSmart.git"
+  },
   "license": "ISC",
   "author": "",
   "type": "commonjs",
