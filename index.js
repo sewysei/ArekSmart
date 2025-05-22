@@ -19,3 +19,5 @@ app.get("/", (req, res) => {
 app.post("/auth/register", registerUser);
 
 app.post("/auth/login", loginUSer);
+
+export default app;
