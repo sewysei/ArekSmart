@@ -35,7 +35,7 @@ export const registerUser = async (req, res) => {
         message: "Konfirmasi Password tidak boleh kosong",
       });
     }
-    if (!emailRegex.test(username)) {
+    if (!emailRegex.test(email)) {
       return res.status(400).json({
         status: "Failed",
         message: "Masukkan email yang valid.",
