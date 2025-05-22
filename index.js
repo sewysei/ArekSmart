@@ -1,13 +1,21 @@
 import express from "express";
+import cookieParser from "cookie-parser";
+import { connectDB } from "./connectDB.js";
+import { registerUser } from "./handler/AUTH/register.js";
+import { loginUSer } from "./handler/AUTH/login.js";
+
 const app = express();
+app.use(express.json());
+app.use(cookieParser());
+connectDB();
 
 app.get("/", (req, res) => {
-  const msg = "Hello World";
+  const message = "Welcome to Arek Smart";
   res.json({
-    msg,
+    message,
   });
 });
 
-app.listen(8080, () => {
-  console.log("Server running on port 8080");
-});
+app.post("/auth/register", registerUser);
+
+app.post("/auth/login", loginUSer);
