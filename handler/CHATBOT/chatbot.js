@@ -14,7 +14,7 @@ export const chatBot = async (req, res) => {
       return res.status(400).json({ error: "Message diperlukan." });
     }
 
-    // Ambil atau buat riwayat dari MongoDB
+    // Ambil atau buat history dari MongoDB
     let chatDoc = await ChatHistory.findOne({ userId });
     if (!chatDoc) {
       chatDoc = new ChatHistory({ userId, messages: [] });
@@ -32,7 +32,7 @@ export const chatBot = async (req, res) => {
       ],
     };
 
-    // Siapkan riwayat untuk dikirim ke Gemini
+    // Siapkan history untuk dikirim ke Gemini
     const historyForGemini = chatDoc.messages.map((msg) => ({
       role: msg.role === "user" ? "user" : "model",
       parts: [{ text: msg.content }],
@@ -79,14 +79,18 @@ export const chatBot = async (req, res) => {
     });
 
     if (chatDoc.messages.length > 50) {
-      chatDoc.messages = chatDoc.messages.slice(-50); // simpan maksimal 50 pesan
+      chatDoc.messages = chatDoc.messages.slice(-50); // Simpan maksimal 50 pesan
     }
 
     await chatDoc.save();
 
-    res.status(200).json({ reply });
+    res.status(200).json({
+      status: "Success",
+      reply: reply,
+    });
   } catch (err) {
-    console.error("Chat error:", err.message);
-    res.status(500).json({ error: "Gagal memproses percakapan." });
+    res
+      .status(500)
+      .json({ status: "Failed", message: `Catch error: ${err.message}` });
   }
 };
