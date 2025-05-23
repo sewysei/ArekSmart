@@ -10,7 +10,7 @@ import { getChatHistory } from "./handler/CHATBOT/getHistory.js";
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
-connectDB();
+await connectDB();
 
 app.get("/", (req, res) => {
   const message = "Welcome to Arek Smart";
